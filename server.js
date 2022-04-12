@@ -6,7 +6,7 @@ const http = require('http');
 const server = http.createServer(app);
 const io = new Server(server, { cors: { origin: '*'}});
 
-app.use(cors({ origin: 'localhost:3000', credentials: true }));
+app.use(cors({ origin: '*', credentials: true }));
 
 let room = [];
 
