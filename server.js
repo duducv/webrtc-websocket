@@ -45,4 +45,4 @@ io.on('connection', (socket) => {
 
 
 
-server.listen(80, () => console.log('listening port 3001'));
+server.listen(3001, () => console.log('listening port 3001'));
