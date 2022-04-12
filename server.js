@@ -10,6 +10,10 @@ const io = new Server(server, { cors: { origin: '*', methods: ['GET', 'POST', 'P
 
 let room = [];
 
+app.get('/', (req, res) => {
+    res.send('Hello world')
+})
+
 io.on('connection', (socket) => {
     socket.on('join room', () => {
         room.push(socket.id);
@@ -41,4 +45,4 @@ io.on('connection', (socket) => {
 
 
 
-server.listen(3001, () => console.log('listening port 3001'));
+server.listen(80, () => console.log('listening port 3001'));
