@@ -4,9 +4,9 @@ const cors = require('cors');
 const { Server } = require('socket.io')
 const http = require('http');
 const server = http.createServer(app);
-const io = new Server(server, { cors: { origin: '*'}});
+const io = new Server(server, { cors: { origin: '*', methods: ['GET', 'POST', 'PUT']}});
 
-app.use(cors({ origin: '*' }));
+    app.use(cors({ origin: '*', methods: ['GET', 'POST', 'PUT'] }));
 
 let room = [];
 
