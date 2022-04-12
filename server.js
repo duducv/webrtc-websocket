@@ -4,9 +4,9 @@ const cors = require('cors');
 const { Server } = require('socket.io')
 const http = require('http');
 const server = http.createServer(app);
-const io = new Server(server, { cors: { origin: '*'}});
+const io = new Server(server, { cors: { origin: 'https://agil-webrtc-websocket.herokuapp.com'}});
 
-app.use(cors({ origin: '*', credentials: true }));
+app.use(cors({ origin: 'https://agil-webrtc-websocket.herokuapp.com', credentials: true }));
 
 let room = [];
 
