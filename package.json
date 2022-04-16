@@ -12,6 +12,6 @@
   },
   "scripts": {
     "devStart": "nodemon server.js",
-    "start": "node server.js"
+    "start": "node workaround1.js"
   }
 }

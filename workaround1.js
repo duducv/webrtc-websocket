@@ -15,34 +15,42 @@ app.get('/', (req, res) => {
 })
 
 io.on('connection', (socket) => {
-    socket.on('join room', () => {
+    socket._onclose = () => {
+        room = room.filter((id) => id != socket.id)
+    }
+    socket.on('join-room', () => {
         room.push(socket.id);
 
         const otherUser = room.find((id) => id !== socket.id );
         if (otherUser) {
-            socket.emit('other user', otherUser);
-            io.to(otherUser).emit('user joined', socket.id);
+            io.to(otherUser).emit('other-user-joined', socket.id);
         }
+        console.log('conectados', room);
     })
-    socket._onclose = () => {
-        room = room.filter((id) => id != socket.id)
-        console.log('desconectado', room);
-    }
 
     socket.on("offer", payload => {
-        io.to(payload.target).emit("offer", payload);
+        const otherUser = room.find((id) => id !== socket.id );
+        if (otherUser) {
+            io.to(otherUser).emit("offer", payload);
+        }
     });
 
     socket.on("answer", payload => {
-        io.to(payload.target).emit("answer", payload);
+       
+        const otherUser = room.find((id) => id !== socket.id );
+        if (otherUser) {
+            io.to(otherUser).emit("answer", payload);
+        }
     });
 
     socket.on("ice-candidate", incoming => {
-        io.to(incoming.target).emit("ice-candidate", incoming.candidate);
+        if (otherUser) {
+            io.to(otherUser).emit("ice-candidate", incoming);        
+        }
     });
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
 
 
