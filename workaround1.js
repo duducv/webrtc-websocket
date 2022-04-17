@@ -44,6 +44,7 @@ io.on('connection', (socket) => {
     });
 
     socket.on("ice-candidate", incoming => {
+        const otherUser = room.find((id) => id !== socket.id );
         if (otherUser) {
             io.to(otherUser).emit("ice-candidate", incoming);        
         }
